@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct0a6nj2hbe3d"]
+
+[ext_resource type="Script" path="res://scripts/Area.gd" id="1_3g2wu"]
+[ext_resource type="AudioStream" uid="uid://cvyvhetq4yx4w" path="res://sfx/Score.ogg" id="2_8aoi2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no6qm"]
+
+[node name="Area" type="Area2D"]
+scale = Vector2(1.4, 75)
+script = ExtResource("1_3g2wu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_no6qm")
+
+[node name="Marcou" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8aoi2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

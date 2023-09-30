@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://751g6ncpl2nr"]
+
+[ext_resource type="Script" path="res://scripts/Bola.gd" id="1_tpp6d"]
+[ext_resource type="Texture2D" uid="uid://bxbgwfj6dckvr" path="res://texturas/Bola.png" id="1_y8opr"]
+[ext_resource type="AudioStream" uid="uid://dgmyimtaog14r" path="res://sfx/Pop.ogg" id="3_e0an8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7ply"]
+size = Vector2(32, 32)
+
+[node name="Bola" type="CharacterBody2D"]
+script = ExtResource("1_tpp6d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_y8opr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y7ply")
+
+[node name="Bate" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_e0an8")

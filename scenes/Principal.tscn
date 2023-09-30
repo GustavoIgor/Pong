@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://xvrfspgdon3j"]
+
+[ext_resource type="Script" path="res://scripts/Principal.gd" id="1_ttuf0"]
+[ext_resource type="PackedScene" uid="uid://dbsmf0hop6dxc" path="res://scenes/Parede.tscn" id="1_xpu6w"]
+[ext_resource type="PackedScene" uid="uid://vs3b6g2rr2vd" path="res://scenes/Colunas.tscn" id="2_b3ke8"]
+[ext_resource type="Script" path="res://scripts/Inimigo.gd" id="3_svndt"]
+[ext_resource type="PackedScene" uid="uid://751g6ncpl2nr" path="res://scenes/Bola.tscn" id="4_5sotf"]
+[ext_resource type="PackedScene" uid="uid://ct0a6nj2hbe3d" path="res://scenes/Area.tscn" id="5_bjups"]
+[ext_resource type="Texture2D" uid="uid://dygxej1fins6h" path="res://texturas/linha.png" id="7_x5suy"]
+[ext_resource type="PackedScene" uid="uid://beu57c60dfafm" path="res://scenes/bgm.tscn" id="8_ao8s0"]
+[ext_resource type="PackedScene" uid="uid://bv5k5206cw50h" path="res://scenes/ui.tscn" id="9_85uqf"]
+
+[node name="Principal" type="Node2D"]
+script = ExtResource("1_ttuf0")
+metadata/_edit_vertical_guides_ = []
+metadata/_edit_horizontal_guides_ = [1024.0]
+
+[node name="Paredes" type="Node" parent="."]
+
+[node name="ParedeCima" parent="Paredes" instance=ExtResource("1_xpu6w")]
+position = Vector2(-1440, -808)
+scale = Vector2(2.5, 2.5)
+
+[node name="ParedeBaixo" parent="Paredes" instance=ExtResource("1_xpu6w")]
+position = Vector2(-1440, 736)
+scale = Vector2(2.5, 2.5)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.4, 0.4)
+
+[node name="Coluna" parent="." instance=ExtResource("2_b3ke8")]
+position = Vector2(-1300, 0)
+
+[node name="ColunaInimiga" parent="." node_paths=PackedStringArray("bola") instance=ExtResource("2_b3ke8")]
+position = Vector2(1300, 0)
+script = ExtResource("3_svndt")
+velocidade_inimigo = 35000
+bola = NodePath("../Bola")
+
+[node name="Bola" parent="." instance=ExtResource("4_5sotf")]
+
+[node name="AreaEsquerda" parent="." instance=ExtResource("5_bjups")]
+position = Vector2(-1300, -8)
+
+[node name="AreaDireita" parent="." instance=ExtResource("5_bjups")]
+position = Vector2(1300, 0)
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, -700)
+points = PackedVector2Array(0, 0, 0, 1400)
+width = 32.0
+texture = ExtResource("7_x5suy")
+texture_mode = 1
+
+[node name="BGM" parent="." instance=ExtResource("8_ao8s0")]
+process_mode = 3
+
+[node name="UI" parent="." instance=ExtResource("9_85uqf")]
+
+[connection signal="marcou" from="AreaEsquerda" to="." method="_on_inimigo_marcou"]
+[connection signal="marcou" from="AreaDireita" to="." method="_on_jogador_marcou"]
